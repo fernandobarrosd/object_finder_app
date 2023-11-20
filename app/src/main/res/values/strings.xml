@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Object Finder - IFsul</string>
+    <string name="default_email_hint">nomealuno@academico.ifsul.edu.br</string>
+    <string name="default_password_hint">********</string>
+    <string name="btn_login_text">Entrar</string>
+    <string name="lost_object_name_hint">Nome do objeto</string>
+    <string name="lost_object_description_hint">Descrição do objeto</string>
+    <string name="lost_object_date_hint">01/05/2023</string>
+    <string name="btn_next_text">Continuar</string>
+    <string name="btn_back_text">Voltar</string>
+    <string name="btn_create_text">Criar</string>
+    <string name="btn_logout_text">Sair</string>
+    <string name="view_holder_lost_object_name_default_text">Nome</string>
+</resources>
