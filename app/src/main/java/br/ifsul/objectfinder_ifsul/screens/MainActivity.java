@@ -22,15 +22,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent;
         int id = sharedPreferences.getInt("id", 0);
 
-        if (id == 0) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+
+        /*if (id == 0) {
             intent = new Intent(this, LoginActivity.class);
         } else {
-            intent = new Intent(this, AuthenticatedActivity.class);
+            intent = new Intent(this, HomeActivity.class);
         }
         startActivity(intent);
-        finish();
+        finish();*/
     }
 }

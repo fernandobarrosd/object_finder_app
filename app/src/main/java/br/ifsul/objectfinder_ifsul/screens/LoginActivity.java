@@ -1,15 +1,12 @@
 package br.ifsul.objectfinder_ifsul.screens;
 
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.IOException;
-import br.ifsul.objectfinder_ifsul.ObjectFinderAPI;
+
 import br.ifsul.objectfinder_ifsul.databinding.ActivityLoginBinding;
-import br.ifsul.objectfinder_ifsul.dto.UsuarioDTO;
 import br.ifsul.objectfinder_ifsul.design_patterns.factories.ToastFactory;
 import br.ifsul.objectfinder_ifsul.design_patterns.strategy.Validation;
 import br.ifsul.objectfinder_ifsul.design_patterns.strategy.implementations.ValidationEmail;
@@ -50,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = TextViewUtils.convertToString(binding.inputEmail);
         String password = TextViewUtils.convertToString(binding.inputPassword);
 
-        IntentUtils.createIntentAndStart(this, AuthenticatedActivity.class);
+        IntentUtils.createIntentAndStart(this, HomeActivity.class);
 
     }
 
