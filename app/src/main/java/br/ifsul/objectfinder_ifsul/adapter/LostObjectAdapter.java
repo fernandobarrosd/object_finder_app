@@ -3,16 +3,20 @@ package br.ifsul.objectfinder_ifsul.adapter;
 import static androidx.recyclerview.widget.RecyclerView.Adapter;
 import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import java.util.ArrayList;
+import java.util.List;
+
 import br.ifsul.objectfinder_ifsul.databinding.ViewHolderLostObjectBinding;
+import br.ifsul.objectfinder_ifsul.dto.LostObjectDTO;
 
 public class LostObjectAdapter extends Adapter<LostObjectAdapter.LostObjectViewHolder> {
-    private final ArrayList<String> names;
+    private final List<LostObjectDTO> lostObjectDTOS;
 
-    public LostObjectAdapter(ArrayList<String> names) {
-        this.names = names;
+    public LostObjectAdapter(List<LostObjectDTO> lostObjectDTOS) {
+        this.lostObjectDTOS = lostObjectDTOS;
         setHasStableIds(true);
     }
 
@@ -25,13 +29,15 @@ public class LostObjectAdapter extends Adapter<LostObjectAdapter.LostObjectViewH
 
     @Override
     public void onBindViewHolder(@NonNull LostObjectViewHolder holder, int position) {
-        String name = names.get(position);
-        holder.binding.lostObjectName.setText(name);
+        LostObjectDTO lostObjectDTO = lostObjectDTOS.get(position);
+        holder.binding.lostObjectName.setText(lostObjectDTO.getName());
+        holder.binding.lostObjectDescription.setText(lostObjectDTO.getDescription());
+        holder.binding.lostObjectDate.setText(lostObjectDTO.getDataEncontrado());
     }
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return lostObjectDTOS.size();
     }
 
     public static class LostObjectViewHolder extends ViewHolder {

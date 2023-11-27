@@ -11,4 +11,6 @@
     <string name="btn_create_text">Criar</string>
     <string name="btn_logout_text">Sair</string>
     <string name="view_holder_lost_object_name_default_text">Nome</string>
+    <string name="view_holder_lost_object_description_default_text">Description</string>
+    <string name="view_holder_lost_object_data_encontrado_default_text">05/07/2022</string>
 </resources>
