@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.appcompat.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import br.ifsul.objectfinder_ifsul.adapter.LostObjectAdapter;
 import br.ifsul.objectfinder_ifsul.databinding.ActivityHomeBinding;
 import br.ifsul.objectfinder_ifsul.design_patterns.factories.SharedPreferencesFactory;
 import br.ifsul.objectfinder_ifsul.dto.LostObjectDTO;
+import br.ifsul.objectfinder_ifsul.services.LostObjectService;
 import br.ifsul.objectfinder_ifsul.services.UserService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +31,8 @@ public class HomeActivity extends AppCompatActivity {
     private final List<LostObjectDTO> lostObjects = new ArrayList<>();
 
     private UserService userService;
+
+    private LostObjectService lostObjectService;
 
     private SharedPreferences sharedPreferences;
 
@@ -44,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initToolbar();
-        initService();
+        initServices();
     }
 
     private void initRecyclerView() {
@@ -54,15 +58,39 @@ public class HomeActivity extends AppCompatActivity {
         binding.lostObjectsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
+    private void initServices() {
+        userService = ObjectFinderAPI.getUserService();
+        lostObjectService = ObjectFinderAPI.getLostObjectService();
+    }
+
     private void initToolbar() {
         setSupportActionBar(binding.toolbar);
+    }
+
+    private void initEvents() {
+        binding.addObjectFloatingActionButton.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, FirstStepCreateLostObjectActivity.class);
+            startActivity(intent);
+        });
+        binding.searchInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterNames(newText);
+                return false;
+            }
+        });
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        initService();
+        initEvents();
         long userID = sharedPreferences.getLong("id", 0);
 
         if (userID != 0) {
@@ -84,27 +112,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
-
-
-
-
-
-        /*binding.searchInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterNames(newText);
-                return false;
-            }
-        });*/
     }
 
     @Override
@@ -127,22 +134,21 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initService() {
-        userService = ObjectFinderAPI.getUserService();
-    }
+    private void filterNames(String queryName) {
+        lostObjectService.findByName(queryName).enqueue(new Callback<>(){
 
-    /*private void filterNames(String queryName) {
-        List<String> filteredNames = new ArrayList<>();
-        if (!queryName.isEmpty()) {
-            names.forEach(name -> {
-                if (name.toLowerCase().contains(queryName.toLowerCase())) {
-                    filteredNames.add(name);
+            @Override
+            public void onResponse(@NonNull Call<List<LostObjectDTO>> call, @NonNull Response<List<LostObjectDTO>> response) {
+                if (response.isSuccessful()) {
+                    List<LostObjectDTO> lostObjectDTOS = response.body();
+                    System.out.println(lostObjectDTOS);
                 }
-            });
-            binding.lostObjectsRecyclerView.setAdapter(new LostObjectAdapter(filteredNames));
-        }
-        else {
-            binding.lostObjectsRecyclerView.setAdapter(new LostObjectAdapter(names));
-        }
-    }*/
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<LostObjectDTO>> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
 }

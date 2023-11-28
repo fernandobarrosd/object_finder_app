@@ -14,19 +14,32 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import br.ifsul.objectfinder_ifsul.ObjectFinderAPI;
 import br.ifsul.objectfinder_ifsul.R;
 import br.ifsul.objectfinder_ifsul.classes.Date;
 import br.ifsul.objectfinder_ifsul.databinding.ActivityFirstStepCreateLostObjectBinding;
 import br.ifsul.objectfinder_ifsul.design_patterns.factories.ArrayAdapterFactory;
 import br.ifsul.objectfinder_ifsul.design_patterns.factories.DateFactory;
+import br.ifsul.objectfinder_ifsul.dto.CategoryNameDTO;
+import br.ifsul.objectfinder_ifsul.services.CategoryService;
 import br.ifsul.objectfinder_ifsul.utils.IntentUtils;
 import br.ifsul.objectfinder_ifsul.utils.NumberUtils;
 import br.ifsul.objectfinder_ifsul.utils.TextViewUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private static ActivityFirstStepCreateLostObjectBinding binding;
-    private final String[] CATEGORIES = new String[]{"Eletrônicos", "Roupas"};
+
+    private List<String> categories;
+
+    private CategoryService categoryService;
 
 
     @Override
@@ -39,6 +52,7 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        initService();
         Uri uri = getIntent().getParcelableExtra("photo_uri", Uri.class);
         String lostObjectName = getIntent().getStringExtra("lostObjectName");
         String lostObjectDescription = getIntent().getStringExtra("lostObjectDescription");
@@ -59,16 +73,52 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ArrayAdapter<String> lostObjectCategoriesAdapter = ArrayAdapterFactory
-                .withValues(this, CATEGORIES, android.R.layout.simple_spinner_dropdown_item);
-        binding.lostObjectCategories.setAdapter(lostObjectCategoriesAdapter);
+        initEvents();
+        initCategoriesList();
+
+    }
+
+    private void initCategoriesList() {
+        categoryService.getCategoryNames().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<List<CategoryNameDTO>> call, @NonNull Response<List<CategoryNameDTO>> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+
+                    categories = response.body()
+                            .stream()
+                            .map(CategoryNameDTO::getName)
+                            .collect(Collectors.toList());
+
+                    runOnUiThread(() -> {
+                        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(getApplicationContext(),
+                                android.R.layout.simple_list_item_1,
+                                categories);
+                        binding.categoriesSpinner.setAdapter(categoriesAdapter);
+                    });
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<CategoryNameDTO>> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
+    private void initService() {
+        categoryService = ObjectFinderAPI.getCategoryService();
+    }
+
+    private void initEvents() {
         binding.lostObjectDate.setOnClickListener(this::showDatePicker);
         binding.btnNextStep.setOnClickListener(this::goToSecondStep);
     }
 
     private void showDatePicker(View view) {
-        DialogFragment dateFragment = new DatePickerFragment();
-        dateFragment.show(getSupportFragmentManager(), "datePicker");
+        DatePickerFragment datePicker = new DatePickerFragment();
+        datePicker.show(getSupportFragmentManager(), "datePicker");
     }
 
     private void goToSecondStep(View view) {
@@ -87,21 +137,20 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
         finish();
     }
 
-    private static class DatePickerFragment extends DialogFragment implements OnDateSetListener {
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
         @NonNull
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            Date date = DateFactory.fromCalendar(Calendar.getInstance());
-            return new DatePickerDialog(requireContext(),this, date.getYear(),
-                    date.getMonth(), date.getYear());
+            Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            return new DatePickerDialog(requireActivity(), this, day, month, year);
         }
 
         @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            String formatDay = NumberUtils.formatToTwoNumbers(dayOfMonth);
-            String formatMonth = NumberUtils.formatToTwoNumbers(monthOfYear + 1);
-            String formatDate = String.format("%s/%s/%s", formatDay, formatMonth, year);
-            binding.lostObjectDate.setText(formatDate);
+        public void onDateSet(DatePicker datePicker, int day, int month, int year) {
+            System.out.println(day + " " + month + " " + year);
         }
     }
 }

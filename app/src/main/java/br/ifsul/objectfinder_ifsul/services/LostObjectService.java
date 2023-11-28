@@ -12,5 +12,5 @@ public interface LostObjectService {
     Call<LostObjectDTO> findById(@Path("id") Long id);
 
     @GET("objects/name/{name}")
-    Call<List<LostObjectDTO>> findByName(String name);
+    Call<List<LostObjectDTO>> findByName(@Path("name") String name);
 }

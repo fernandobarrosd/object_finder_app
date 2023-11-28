@@ -2,6 +2,7 @@ package br.ifsul.objectfinder_ifsul;
 
 import br.ifsul.objectfinder_ifsul.dto.LoginDTO;
 import br.ifsul.objectfinder_ifsul.services.CategoryService;
+import br.ifsul.objectfinder_ifsul.services.LostObjectService;
 import br.ifsul.objectfinder_ifsul.services.UserService;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,5 +21,9 @@ public abstract class ObjectFinderAPI {
 
     public static UserService getUserService() {
         return RETROFIT.create(UserService.class);
+    }
+
+    public static LostObjectService getLostObjectService() {
+        return RETROFIT.create(LostObjectService.class);
     }
 }

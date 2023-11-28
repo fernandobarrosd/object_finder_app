@@ -33,7 +33,7 @@
         android:textColor="@color/white"
         android:textColorHint="#DCD2D2"
         android:paddingHorizontal="15dp"
-        android:background="@drawable/input_bg_color"
+        android:background="@drawable/bg_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,9 +62,10 @@
 
 
     <Spinner
-        android:id="@+id/lostObjectCategories"
+        android:id="@+id/categoriesSpinner"
         android:layout_width="140dp"
         android:layout_height="50dp"
+        android:background="#0b6c1d"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="74dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lostObjectCategories"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesSpinner"
         app:layout_constraintVertical_bias="0.152"
         tools:ignore="TextFields" />
 
