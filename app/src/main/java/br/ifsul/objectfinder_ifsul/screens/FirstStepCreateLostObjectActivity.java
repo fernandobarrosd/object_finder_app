@@ -1,29 +1,25 @@
 package br.ifsul.objectfinder_ifsul.screens;
 
-import static android.app.DatePickerDialog.OnDateSetListener;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
 import br.ifsul.objectfinder_ifsul.ObjectFinderAPI;
 import br.ifsul.objectfinder_ifsul.R;
-import br.ifsul.objectfinder_ifsul.classes.Date;
 import br.ifsul.objectfinder_ifsul.databinding.ActivityFirstStepCreateLostObjectBinding;
-import br.ifsul.objectfinder_ifsul.design_patterns.factories.ArrayAdapterFactory;
-import br.ifsul.objectfinder_ifsul.design_patterns.factories.DateFactory;
 import br.ifsul.objectfinder_ifsul.dto.CategoryNameDTO;
 import br.ifsul.objectfinder_ifsul.services.CategoryService;
 import br.ifsul.objectfinder_ifsul.utils.IntentUtils;
@@ -58,23 +54,28 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
         String lostObjectDescription = getIntent().getStringExtra("lostObjectDescription");
         String lostObjectDate = getIntent().getStringExtra("lostObjectDate");
 
-        binding.lostObjectPhoto.setImageURI(uri);
-        binding.lostObjectName.setText(lostObjectName);
-        binding.lostObjectDescription.setText(lostObjectDescription);
+        binding.lostObjectPhotoImageView.setImageURI(uri);
+        binding.lostObjectNameEditText.setText(lostObjectName);
+        binding.lostObjectDescriptionEditText.setText(lostObjectDescription);
 
         if (lostObjectDate != null) {
-            binding.lostObjectDate.setText(lostObjectDate);
+            binding.lostObjectDateTextView.setText(lostObjectDate);
         }
         else {
-            binding.lostObjectDate.setText(getString(R.string.lost_object_date_hint));
+            binding.lostObjectDateTextView.setText(getString(R.string.lost_object_date_hint));
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        initActivitiesResults();
         initEvents();
         initCategoriesList();
+
+    }
+
+    private void initActivitiesResults() {
 
     }
 
@@ -112,7 +113,7 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     }
 
     private void initEvents() {
-        binding.lostObjectDate.setOnClickListener(this::showDatePicker);
+        binding.lostObjectDateTextView.setOnClickListener(this::showDatePicker);
         binding.btnNextStep.setOnClickListener(this::goToSecondStep);
     }
 
@@ -123,9 +124,9 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
 
     private void goToSecondStep(View view) {
         Uri photoUri = getIntent().getParcelableExtra("photo_uri", Uri.class);
-        String lostObjectName = TextViewUtils.convertToString(binding.lostObjectName);
-        String lostObjectDescription = TextViewUtils.convertToString(binding.lostObjectDescription);
-        String lostObjectDate = TextViewUtils.convertToString(binding.lostObjectDate);
+        String lostObjectName = TextViewUtils.convertToString(binding.lostObjectNameEditText);
+        String lostObjectDescription = TextViewUtils.convertToString(binding.lostObjectDescriptionEditText);
+        String lostObjectDate = TextViewUtils.convertToString(binding.lostObjectDateTextView);
 
         IntentUtils.createIntentAndStart(this,
                 SecondStepCreateLostObjectActivity.class, intent -> {
@@ -142,15 +143,22 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
             Calendar calendar = Calendar.getInstance();
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int day = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
             int month = calendar.get(Calendar.MONTH);
             int year = calendar.get(Calendar.YEAR);
-            return new DatePickerDialog(requireActivity(), this, day, month, year);
+            return new DatePickerDialog(requireActivity(), this, year, month, day);
         }
 
         @Override
-        public void onDateSet(DatePicker datePicker, int day, int month, int year) {
-            System.out.println(day + " " + month + " " + year);
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            String dayString = NumberUtils.formatToTwoNumbers(day);
+            String monthString = NumberUtils.formatToTwoNumbers(month + 1);
+            String yearString = NumberUtils.formatToTwoNumbers(year);
+            String date = String.format("%s/%s/%s", dayString, monthString, yearString);
+
+            binding.lostObjectDateTextView.setText(date);
+
+
         }
     }
 }

@@ -7,22 +7,19 @@
 
 
     <ImageView
-        android:id="@+id/lostObjectPhoto"
+        android:id="@+id/lostObjectPhotoImageView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginHorizontal="20dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/image_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.190"
-        />
+        app:layout_constraintVertical_bias="0.111" />
 
     <EditText
-        android:id="@+id/lostObjectName"
+        android:id="@+id/lostObjectNameEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="40dp"
@@ -37,11 +34,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lostObjectPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/lostObjectPhotoImageView"
         app:layout_constraintVertical_bias="0.144" />
 
     <EditText
-        android:id="@+id/lostObjectDescription"
+        android:id="@+id/lostObjectDescriptionEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="40dp"
@@ -56,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lostObjectName"
+        app:layout_constraintTop_toBottomOf="@+id/lostObjectNameEditText"
         app:layout_constraintVertical_bias="0.144" />
 
 
@@ -72,11 +69,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lostObjectDescription"
+        app:layout_constraintTop_toTopOf="@+id/lostObjectDescriptionEditText"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/lostObjectDate"
+        android:id="@+id/lostObjectDateTextView"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
