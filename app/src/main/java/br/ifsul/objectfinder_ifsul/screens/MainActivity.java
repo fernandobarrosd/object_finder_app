@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent;
+        /*Intent intent;
         long id = sharedPreferences.getLong("id", 0);
 
         if (id == 0) {
@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             intent = new Intent(this, HomeActivity.class);
         }
+        startActivity(intent);
+        finish();*/
+
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
     }

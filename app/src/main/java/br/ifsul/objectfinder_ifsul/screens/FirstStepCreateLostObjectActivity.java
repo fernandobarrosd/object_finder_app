@@ -1,15 +1,16 @@
 package br.ifsul.objectfinder_ifsul.screens;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import androidx.activity.result.ActivityResultLauncher;
+import static androidx.activity.result.contract.ActivityResultContracts.GetContent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,12 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
 
     private CategoryService categoryService;
 
+    private DatePickerFragment datePickerFragment;
+
+    private LostObjectTakePictureDialog lostObjectTakePictureDialog;
+
+    private static ActivityResultLauncher<String>  cameraLauncher;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +55,7 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        initService();
+        //initService();
         Uri uri = getIntent().getParcelableExtra("photo_uri", Uri.class);
         String lostObjectName = getIntent().getStringExtra("lostObjectName");
         String lostObjectDescription = getIntent().getStringExtra("lostObjectDescription");
@@ -69,14 +76,22 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initActivitiesResults();
+        initActivityResultLaunchers();
+        initDialogs();
         initEvents();
-        initCategoriesList();
+        //initCategoriesList();
 
     }
 
-    private void initActivitiesResults() {
+    private void initDialogs()  {
+        datePickerFragment = new DatePickerFragment();
+        lostObjectTakePictureDialog = new LostObjectTakePictureDialog();
+    }
 
+    private void initActivityResultLaunchers() {
+        cameraLauncher = registerForActivityResult(new GetContent(), uri -> {
+
+        });
     }
 
     private void initCategoriesList() {
@@ -115,11 +130,13 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
     private void initEvents() {
         binding.lostObjectDateTextView.setOnClickListener(this::showDatePicker);
         binding.btnNextStep.setOnClickListener(this::goToSecondStep);
+        binding.lostObjectPhotoImageView.setOnClickListener(view -> {
+            lostObjectTakePictureDialog.show(getSupportFragmentManager(), "picture_dialog");
+        });
     }
 
     private void showDatePicker(View view) {
-        DatePickerFragment datePicker = new DatePickerFragment();
-        datePicker.show(getSupportFragmentManager(), "datePicker");
+        datePickerFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     private void goToSecondStep(View view) {
@@ -160,5 +177,24 @@ public class FirstStepCreateLostObjectActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public static class LostObjectTakePictureDialog  extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireActivity());
+            alertDialogBuilder.setTitle("Escolha uma opção");
+            alertDialogBuilder.setItems(new String[]{"Abrir câmera", "Abrir galeria"}, (dialog, which) -> {
+                if (which == 0) {
+                    cameraLauncher.launch("image/*");
+                }
+
+            });
+
+            return alertDialogBuilder.create();
+        }
+
+
     }
 }
