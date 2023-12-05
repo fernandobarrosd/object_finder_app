@@ -1,4 +1,4 @@
-package br.ifsul.objectfinder_ifsul.design_patterns.factories;
+package br.ifsul.objectfinder_ifsul.factories;
 
 import android.app.AlertDialog;
 import android.content.Context;

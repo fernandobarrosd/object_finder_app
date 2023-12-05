@@ -3,21 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_landscape_wallpaper">
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_app"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.563" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <EditText
         android:id="@+id/inputEmail"
@@ -26,56 +14,51 @@
         android:autofillHints=""
         android:background="@drawable/input_bg_color"
         android:ems="10"
-        android:hint="@string/default_password_hint"
+        android:hint="E-mail acadêmico"
         android:inputType="textEmailAddress"
         android:paddingHorizontal="15dp"
         android:textColor="@color/white"
         android:textColorHint="#DCD2D2"
         android:textSize="15sp"
+        android:tooltipText="Email academico Ifsul"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-        app:layout_constraintVertical_bias="0.094"
-        android:tooltipText="Email academico Ifsul"/>
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081" />
 
     <EditText
         android:id="@+id/inputPassword"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:autofillHints=""
+        android:layout_marginTop="28dp"
         android:background="@drawable/input_bg_color"
         android:ems="10"
-        android:hint="@string/default_email_hint"
+        android:hint="Senha"
         android:inputType="textPassword"
         android:paddingHorizontal="15dp"
         android:textColor="@color/white"
         android:textColorHint="#DCD2D2"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.566"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.329" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="400dp"
+        android:layout_width="250dp"
         android:layout_height="70dp"
         android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/button_bg_color"
-        android:padding="15dp"
-        android:text="Logar"
+        android:text="@string/btn_login_text"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail"
-        app:layout_constraintVertical_bias="0.355" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>

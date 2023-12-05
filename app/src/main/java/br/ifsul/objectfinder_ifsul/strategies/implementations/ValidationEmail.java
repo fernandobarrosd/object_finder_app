@@ -1,7 +1,7 @@
-package br.ifsul.objectfinder_ifsul.design_patterns.strategy.implementations;
+package br.ifsul.objectfinder_ifsul.strategies.implementations;
 
 import java.util.regex.Pattern;
-import br.ifsul.objectfinder_ifsul.design_patterns.strategy.interfaces.IValidation;
+import br.ifsul.objectfinder_ifsul.strategies.interfaces.IValidation;
 
 public class ValidationEmail implements IValidation  {
     @Override

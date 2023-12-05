@@ -1,6 +1,8 @@
 package br.ifsul.objectfinder_ifsul.dto;
 
-public class LostObjectDTO {
+import java.io.Serializable;
+
+public class LostObjectDTO implements Serializable {
     private Long id;
     private String name;
 
@@ -8,9 +10,9 @@ public class LostObjectDTO {
 
     private String category;
 
-    private String dataEncontrado;
+    private String foundedDate;
 
-    private String devolvido;
+    private String isFounded;
 
     public Long getId() {
         return id;
@@ -44,19 +46,19 @@ public class LostObjectDTO {
         this.category = category;
     }
 
-    public String getDataEncontrado() {
-        return dataEncontrado;
+    public String getFoundedDate() {
+        return foundedDate;
     }
 
-    public void setDataEncontrado(String dataEncontrado) {
-        this.dataEncontrado = dataEncontrado;
+    public void setFoundedDate(String foundedDate) {
+        this.foundedDate = foundedDate;
     }
 
-    public String getDevolvido() {
-        return devolvido;
+    public String getIsFounded() {
+        return isFounded;
     }
 
-    public void setDevolvido(String devolvido) {
-        this.devolvido = devolvido;
+    public void setIsFounded(String isFounded) {
+        this.isFounded = isFounded;
     }
 }

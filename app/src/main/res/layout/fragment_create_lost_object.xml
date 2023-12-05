@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lost_object_name_label"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/lostObjectNameEditText"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_bg_color"
+                    android:ems="10"
+                    android:hint="@string/lost_object_name_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#DCD2D2"
+                    android:textSize="15sp"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lost_object_description_label"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/lostObjectDescriptionEditText"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_bg_color"
+                    android:ems="10"
+                    android:hint="@string/lost_object_description_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#DCD2D2"
+                    android:textSize="15sp"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lost_object_locale_label"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/lostObjectLocaleEditText"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_bg_color"
+                    android:ems="10"
+                    android:hint="@string/lost_object_locale_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#DCD2D2"
+                    android:textSize="15sp"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lost_object_category_label"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/categoriesSpinner"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_bg_color" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/lost_object_founded_date_label"
+                    android:textSize="15sp"
+                    tools:ignore="TextFields" />
+
+                <EditText
+                    android:id="@+id/lostObjectDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/lost_object_founded_date_hint"
+                    android:background="@drawable/input_bg_color"
+                    android:inputType="date"
+                    android:padding="15dp"
+                    tools:ignore="Autofill"
+                    android:enabled="false"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCreateLostObject"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_bg_color_2"
+                android:padding="15dp"
+                android:text="@string/btn_create_lost_object_text"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

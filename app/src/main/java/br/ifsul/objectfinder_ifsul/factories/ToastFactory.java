@@ -1,4 +1,4 @@
-package br.ifsul.objectfinder_ifsul.design_patterns.factories;
+package br.ifsul.objectfinder_ifsul.factories;
 
 import android.content.Context;
 import android.widget.Toast;

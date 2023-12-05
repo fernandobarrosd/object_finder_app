@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/authenticated_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="br.ifsul.objectfinder_ifsul.screens.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_firstStepCreateLostObjectFragment"
+            app:destination="@id/createLostObjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createLostObjectFragment"
+        android:name="br.ifsul.objectfinder_ifsul.screens.CreateLostObjectFragment"
+        android:label="Informações do objeto"
+        tools:layout="@layout/fragment_create_lost_object">
+        <action
+            android:id="@+id/action_createLostObjectFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="br.ifsul.objectfinder_ifsul.screens.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

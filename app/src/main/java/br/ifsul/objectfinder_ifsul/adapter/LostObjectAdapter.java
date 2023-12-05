@@ -3,17 +3,16 @@ package br.ifsul.objectfinder_ifsul.adapter;
 import static androidx.recyclerview.widget.RecyclerView.Adapter;
 import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import java.util.ArrayList;
+import androidx.navigation.NavController;
 import java.util.List;
-
 import br.ifsul.objectfinder_ifsul.databinding.ViewHolderLostObjectBinding;
 import br.ifsul.objectfinder_ifsul.dto.LostObjectDTO;
 
 public class LostObjectAdapter extends Adapter<LostObjectAdapter.LostObjectViewHolder> {
     private final List<LostObjectDTO> lostObjectDTOS;
+    private NavController navController;
 
     public LostObjectAdapter(List<LostObjectDTO> lostObjectDTOS) {
         this.lostObjectDTOS = lostObjectDTOS;
@@ -28,11 +27,11 @@ public class LostObjectAdapter extends Adapter<LostObjectAdapter.LostObjectViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LostObjectViewHolder holder, int position) {
-        LostObjectDTO lostObjectDTO = lostObjectDTOS.get(position);
-        holder.binding.lostObjectName.setText(lostObjectDTO.getName());
-        holder.binding.lostObjectDescription.setText(lostObjectDTO.getDescription());
-        holder.binding.lostObjectDate.setText(lostObjectDTO.getDataEncontrado());
+    public void onBindViewHolder(@NonNull LostObjectViewHolder viewHolder, int index) {
+        LostObjectDTO lostObjectDTO = lostObjectDTOS.get(index);
+        viewHolder.binding.lostObjectDateTextView.setText(lostObjectDTO.getFoundedDate());
+        viewHolder.binding.lostObjectDescription.setText(lostObjectDTO.getDescription());
+        viewHolder.binding.lostObjectName.setText(lostObjectDTO.getName());
     }
 
     @Override
@@ -41,10 +40,13 @@ public class LostObjectAdapter extends Adapter<LostObjectAdapter.LostObjectViewH
     }
 
     public static class LostObjectViewHolder extends ViewHolder {
-        ViewHolderLostObjectBinding binding;
+        public ViewHolderLostObjectBinding binding;
         public LostObjectViewHolder(@NonNull ViewHolderLostObjectBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+
         }
+
     }
 }
